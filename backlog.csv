@@ -1,31 +1,30 @@
-ID,Type,Title,Story Points,Sprint,Owner,User Story,Acceptance Criteria
-SETUP-01,chore,"Backend skeleton: Spring Boot project, DB schema, entities",5,1,Nidhi,"As a developer, I want the backend and database set up so features can be built on it.","App boots; tables for users, change_requests, approvals, audit_log exist."
-SETUP-02,chore,"Frontend skeleton: React app, routing, layout",3,1,Nidhi,"As a developer, I want the React app and routes in place so screens can be added.","Routes for login, dashboard, CR form and CR list render."
-SETUP-03,chore,GitHub Actions: build and test on every PR,3,1,Uthkarsh,"As a team, we want automated checks on every pull request.",A PR triggers build and tests; status shows on the PR.
-SETUP-04,chore,Sprint 1 demo video (1 min) uploaded to repo,2,1,Harshith,"As a team, we want a short video of the working Sprint 1 product.",Video in /demo shows login to submit to approve flow.
-SETUP-05,chore,Final documentation and Sprint 2 demo video (2 min),3,2,Harshith,"As a team, we want final docs and a 2-minute demo of the finished product.","Docs updated, deviations noted, video uploaded to repo."
-CM-F-001,fr,User login with session timeout,5,1,Nidhi,"As a user, I want to log in with username and password so I can access the system.",Valid credentials grant access; expired session forces re-login.
-CM-F-002,fr,"Role-based access control (Requester, CAB, Implementer, Admin)",5,1,Nidhi,"As an admin, I want features restricted by role so users only do what they are allowed to.",Users see only actions permitted for their role.
-CM-F-003,fr,Account lockout after 5 failed logins,3,2,Nidhi,"As an admin, I want accounts locked after repeated failures to stop guessing attacks.",Account locks after 5 failures and admin is notified.
-CM-F-010,fr,Submit a change request,5,1,Harshith,"As a requester, I want to submit a change request with title, description, category, priority and affected systems.",CR saved with unique ID and status Submitted.
-CM-F-011,fr,Attach supporting documents to a CR,3,1,Harshith,"As a requester, I want to attach documents to my CR as evidence.",Valid files attach; oversized or invalid types are rejected.
-CM-F-012,fr,View status and history of own CRs,3,1,Harshith,"As a requester, I want to see my CRs and their status history.",Status timeline reflects every state change.
-CM-F-020,fr,Record risk level on a CR,3,1,Uthkarsh,"As a CAB member, I want to set a risk level (Low/Medium/High) on a CR.",Risk level saved and visible on the CR.
-CM-F-021,fr,Require rollback plan for High-risk CRs,2,1,Uthkarsh,"As a CAB member, I want High-risk CRs blocked without a rollback plan.",Submission rejected without rollback plan when risk is High.
-CM-F-030,fr,Approve or reject a CR with comments,5,1,Uthkarsh,"As a CAB member, I want to approve or reject a CR with mandatory comments.",Decision and comments saved against the CR; status updates.
-CM-F-031,fr,Request more information on a CR,3,2,Nidhi,"As a CAB member, I want to send a CR back asking for more information.",CR status becomes Info Requested; requester can update and resubmit.
-CM-F-040,fr,Change calendar with blackout-period conflict check,8,2,Harshith,"As an approver, I want to schedule approved changes on a calendar and be warned of blackout conflicts.",Conflicting schedule attempts are blocked or warned.
-CM-F-041,fr,Track implementation status,5,2,Nidhi,"As an implementer, I want to update status (Scheduled, In Progress, Completed, Failed, Rolled Back).",Status changes saved and shown to requester.
-CM-F-042,fr,Post-implementation review notes,2,2,Uthkarsh,"As an implementer, I want to record review notes after a change completes.",Notes saved against the CR after completion.
-CM-F-050,fr,Email notification on status change,5,2,Nidhi,"As a requester, I want an email whenever my CR status changes.",Email sent on every status transition.
-CM-F-051,fr,Audit and summary reports,5,2,Uthkarsh,"As an admin, I want reports on CR volume, approval turnaround and success rate.",Report page shows counts and averages for a chosen period.
-CM-NF-001,nfr,Page response time <= 3s (95th percentile),3,2,Uthkarsh,"As a user, I want pages to respond quickly.",95th percentile <= 3s in load test.
-CM-NF-002,nfr,99.5% monthly availability,2,2,Nidhi,"As a user, I want the system available when I need it.",Health check and uptime reporting in place.
-CM-NF-003,nfr,Log all CR actions with timestamp and user ID,5,1,Harshith,"As an auditor, I want every action on a CR logged.","Audit log records user, action and time for each CR action."
-CM-NF-004,nfr,Support 50 concurrent users,3,2,Uthkarsh,"As an org, we want the system to handle 50 users at once.",Load test with 50 users meets response targets.
-CM-NF-005,nfr,WCAG 2.1 AA accessibility on key screens,3,2,Harshith,"As a user with accessibility needs, I want key screens usable.","Accessibility check passes on login, CR form and approval screens."
-CM-SR-001,security,TLS 1.2+ for all connections,2,2,Harshith,"As an org, we want all traffic encrypted.",Connections below TLS 1.2 are rejected.
-CM-SR-002,security,Salted password hashing,2,1,Uthkarsh,"As an org, we want passwords never stored in plaintext.",DB shows hashed values only; nothing logged.
-CM-SR-003,security,Enforce RBAC on every API endpoint,3,1,Uthkarsh,"As an org, we want role checks on the server, not only the UI.",Direct API call by unauthorised role returns 403.
-CM-SR-004,security,Tamper-evident audit trail,5,2,Uthkarsh,"As an auditor, I want audit records that standard users cannot edit or delete.",Audit records immutable to non-admin roles.
-CM-SR-005,security,Session expiry and re-auth for final approval,2,2,Harshith,"As an org, we want idle sessions to expire and approvals to need re-authentication.",Session expires after 15 min; re-auth prompt on final approval.
+ID,Type,Title,Story Points,Sprint (0=deferred),Owner,User Story,Acceptance Criteria
+SETUP-01,chore,"Project skeleton: backend, DB (SQLite/MySQL), frontend, seeded users",3,1,Nidhi,"As a developer, I want the app skeleton running so features can be added.",App runs locally; DB has users and change_requests tables.
+CM-F-001,fr,Login (username/password),3,1,Nidhi,"As a user, I want to log in.",Valid login gives access; invalid is rejected.
+CM-F-002,fr,"Role-based menus (Requester, CAB, Implementer, Admin)",2,1,Nidhi,"As an admin, I want features shown by role.",Each role sees only its own actions.
+CM-F-010,fr,Submit a change request (simple form),3,1,Uthkarsh,"As a requester, I want to submit a CR with title, description, priority.",CR saved with ID and status Submitted.
+CM-F-020,fr,Risk level field (Low/Medium/High),1,1,Uthkarsh,"As a requester/CAB, I want a risk level on each CR.",Risk level saved and shown.
+CM-F-021,fr,Rollback plan required when risk is High,1,1,Uthkarsh,"As CAB, I want High-risk CRs to need a rollback plan.",Save blocked without rollback text if risk is High.
+CM-F-012,fr,List CRs and show status,2,1,Uthkarsh,"As a requester, I want to see my CRs and their status.",Table of CRs with current status.
+SETUP-04,chore,Sprint 1 demo video (1 min) in /demo,1,1,Uthkarsh,"As a team, we want a short Sprint 1 demo video.",Video uploaded to repo.
+CM-F-030,fr,Approve or reject a CR with comment,3,1,Harshith,"As CAB, I want to approve or reject with a comment.",Decision and comment saved; status changes.
+SETUP-03,chore,GitHub Actions: build on every PR,2,1,Harshith,"As a team, we want automated build checks on PRs.",PR triggers build; status shown.
+CM-SR-002,security,Hash passwords,1,1,Harshith,"As an org, we want no plaintext passwords.",DB stores hashes only.
+CM-SR-003,security,Role check on API endpoints,2,1,Harshith,"As an org, we want server-side role checks.",Wrong role gets 403.
+CM-F-031,fr,Request more info (extra decision option),1,2,Uthkarsh,"As CAB, I want to send a CR back for more info.",Status becomes Info Requested.
+CM-F-040,fr,Schedule date on approved CR + simple blackout-date check,3,2,Nidhi,"As an approver, I want to set a date and be warned about blackout dates.",Blackout date is blocked or warned.
+CM-F-041,fr,Update implementation status,2,2,Uthkarsh,"As an implementer, I want to set In Progress/Completed/Failed.",Status saved and visible.
+CM-F-042,fr,Post-implementation notes,1,2,Nidhi,"As an implementer, I want to add review notes.",Notes saved on the CR.
+CM-F-050,fr,In-app notification on status change,2,2,Harshith,"As a requester, I want to be notified when status changes.",Notification shown (email optional).
+CM-NF-003,nfr,Audit log of CR actions,2,2,Uthkarsh,"As an auditor, I want actions logged.","Log row with user, action, time per CR action."
+CM-NF-001,nfr,Response time check (one quick test),1,2,Nidhi,"As a user, I want pages to respond fast.",Measured and reported <= 3s.
+SETUP-05,chore,"Final docs, deviations note, Sprint 2 demo video (2 min)",3,2,Harshith,"As a team, we want final docs and demo.",Docs updated; video uploaded.
+CM-F-003,fr,Account lockout after 5 failed logins,2,0,-,Deferred / future work.,Documented only.
+CM-F-011,fr,Attach documents to a CR,2,0,-,Deferred / future work.,Documented only.
+CM-F-051,fr,Audit and summary reports,3,0,-,Deferred / future work.,Documented only.
+CM-NF-002,nfr,99.5% availability,1,0,-,Deferred / future work.,Documented only.
+CM-NF-004,nfr,50 concurrent users,2,0,-,Deferred / future work.,Documented only.
+CM-NF-005,nfr,WCAG 2.1 AA accessibility,2,0,-,Deferred / future work.,Documented only.
+CM-SR-001,security,TLS 1.2+,1,0,-,Deferred / future work.,Documented only.
+CM-SR-004,security,Tamper-evident audit trail,3,0,-,Deferred / future work.,Documented only.
+CM-SR-005,security,Session expiry and re-auth,1,0,-,Deferred / future work.,Documented only.
