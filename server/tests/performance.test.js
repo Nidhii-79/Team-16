@@ -24,12 +24,14 @@ test.before(async () => {
 });
 test.after(() => server.close());
 async function newCR() {
-  const r = await call("POST", "/change-requests", tokens.requester, { title: "Test CR", description: "desc", priority: "Low", riskLevel: "Low" });
-  return r.json.crId;
+  // inserted directly so these tests do not depend on routes that are not merged yet
+  return db
+    .prepare("INSERT INTO change_requests (title, description, priority, riskLevel, status, requesterId) VALUES ('Test CR', 'desc', 'Low', 'Low', 'Submitted', 1)")
+    .run().lastInsertRowid;
 }
 
 test('TC-Perf-01: 95th percentile response time is 3 seconds or less', async () => {
-  const paths = ['/health', '/change-requests', '/calendar', '/review-notes'];
+  const paths = ['/health', '/calendar', '/review-notes', '/blackout-dates'];
   const times = [];
   for (let i = 0; i < 40; i++) {
     const start = Date.now();
