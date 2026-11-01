@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { getUser, clearSession } from './api';
 import Menu from './Menu';
+import Dashboard from './Dashboard';
 
 // Every file in /pages is picked up automatically. Each page exports:
 //   export const page = { id, title, roles }  and a default React component.
@@ -19,7 +20,8 @@ export default function App() {
   }
 
   const pages = all.filter((p) => p.id !== 'login');
-  const page = pages.find((p) => p.id === current && (!p.roles || p.roles.includes(user.role)));
+  const visible = pages.filter((p) => !p.roles || p.roles.includes(user.role));
+  const page = visible.find((p) => p.id === current);
 
   function logout() {
     clearSession();
@@ -30,8 +32,12 @@ export default function App() {
   return (
     <div>
       <Menu pages={pages} user={user} current={current} onSelect={setCurrent} onLogout={logout} />
-      <main style={{ padding: 16 }}>
-        {page ? <page.Component user={user} /> : <p>Welcome, {user.username}. Pick an option from the menu.</p>}
+      <main key={current || 'home'}>
+        {page ? (
+          <page.Component user={user} />
+        ) : (
+          <Dashboard user={user} visible={visible} onOpen={setCurrent} />
+        )}
       </main>
     </div>
   );
