@@ -1,38 +1,29 @@
-Change Management Software (CMS)
+# Team 16 - Change Management Software (CMS)
 
-A web-based application to manage the lifecycle of IT change requests — from submission, through Change Advisory Board (CAB) review and approval, to scheduling, implementation, and audit reporting. Built as a college mini-project by a 3-member student team.
+A web app that controls how changes to IT systems are requested, approved, scheduled, carried out and logged.
+Stack: Node.js + Express (server), SQLite (database), React + Vite (client).
 
-What it does
+## Requirements
+Node.js 20 or newer and Git.
 
-Employees ("Requesters") raise a change request describing what they want changed. A review team ("CAB") checks the risk and either approves or rejects it. Approved changes get scheduled and tracked through to completion, with a full audit trail kept for every step.
+## Run
+Terminal 1:  cd server && npm install && npm start      (API on http://localhost:4000)
+Terminal 2:  cd client && npm install && npm run dev    (UI on http://localhost:5173)
 
-Features
-1. Authentication & Role-Based Access Control — separate roles for Requester, CAB Approver, Implementer, and Administrator
-2. Change Request Submission — create a CR with title, description, category, priority, and attachments
-3. Risk & Impact Assessment — record risk level (Low/Medium/High) and require a rollback plan for high-risk changes
-4. CAB Approval Workflow — approve/reject with mandatory comments
-5. Scheduling — change calendar with blackout-period conflict checks
-6. Implementation Tracking — status updates (Scheduled → In Progress → Completed/Failed/Rolled Back) and post-implementation review notes
-7. Notifications — email alerts on every status change
-8. Audit Trail & Reporting — tamper-evident logs and summary reports
-   
-Tech Stack:
-- Layer	Technology
-- Frontend	React
-- Backend	Java Spring Boot (REST API)
-- Database	MySQL / PostgreSQL
-- Auth	JWT-based session auth, RBAC
-- Notifications	SMTP / sandbox email service
-- Testing	Selenium, Postman, JMeter
+## Run the tests
+cd server && npm test
 
+## Seeded users (username / password)
+requester / requester123   (Requester: submits change requests)
+cab / cab123               (CAB: approves, rejects, asks for info, schedules)
+implementer / impl123      (Implementer: carries out changes, writes review notes)
+admin / admin123           (Admin: reads the audit log)
 
-Architecture (short version):
+## How a change moves through the system
+Submitted -> Approved -> Scheduled -> In Progress -> Completed (or Failed).
+The CAB can also send a request back (Info Requested) or reject it. Requesters get an in-app notification
+on every status change, and every action is written to the audit log.
 
-React UI  →  REST API (Spring Boot)  →  MySQL/PostgreSQL
-                    │
-                    ├── Auth Service (login, RBAC)
-                    ├── Change Request Service (CR lifecycle)
-                    ├── Approval / Workflow Engine (CAB routing & decisions)
-                    ├── Scheduler Service (calendar, blackout checks)
-                    ├── Notification Service (email alerts)
-                    └── Reporting Module (audit trail, summaries)
+## More
+docs/DEVIATIONS.md - differences from the original plan
+demo/ - demo videos
